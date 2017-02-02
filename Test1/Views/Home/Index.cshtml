@@ -1,4 +1,5 @@
-﻿
+﻿@model IEnumerable<DB.Student>
+
 @{
     Layout = null;
 }
@@ -11,8 +12,60 @@
     <title>Index</title>
 </head>
 <body>
-    <div> 
-        急急急
-    </div>
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.age)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.s_state)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.s_type)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.s_date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.sss)
+            </th>
+            <th></th>
+        </tr>
+    
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.age)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.s_state)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.s_type)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.s_date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.sss)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+                @Html.ActionLink("Details", "Details", new { id=item.id }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.id })
+            </td>
+        </tr>
+    }
+    
+    </table>
 </body>
 </html>

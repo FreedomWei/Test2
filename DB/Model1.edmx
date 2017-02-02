@@ -1,0 +1,296 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="MySchoolModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AP_FUN_API">
+          <Key>
+            <PropertyRef Name="AFA_FUN_FILE" />
+            <PropertyRef Name="AFA_API_CODE" />
+          </Key>
+          <Property Name="AFA_FUN_FILE" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="AFA_API_CODE" Type="varchar" MaxLength="3" Nullable="false" />
+          <Property Name="APA_SEQ" Type="tinyint" Nullable="false" />
+          <Property Name="APA_CREATE_DATE" Type="smalldatetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AP_FUNCTION">
+          <Key>
+            <PropertyRef Name="FN_CODE" />
+          </Key>
+          <Property Name="FN_CODE" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="FN_DESC" Type="varchar" MaxLength="60" />
+          <Property Name="FN_SINGLE_ACCESS" Type="bit" />
+          <Property Name="FN_USER_ID" Type="varchar" MaxLength="6" />
+          <Property Name="FN_FILE_LOCATION" Type="varchar" MaxLength="100" />
+          <Property Name="FN_ICON" Type="varchar" MaxLength="50" />
+          <Property Name="FN_SEQ" Type="int" />
+          <Property Name="FN_MULTIWINDOW" Type="bit" />
+          <Property Name="FN_WITH_API" Type="bit" />
+        </EntityType>
+        <EntityType Name="AP_STATUS">
+          <Key>
+            <PropertyRef Name="ES_CODE" />
+            <PropertyRef Name="ES_TYPE" />
+          </Key>
+          <Property Name="ES_CODE" Type="varchar" MaxLength="3" Nullable="false" />
+          <Property Name="ES_DESC" Type="nvarchar" MaxLength="50" />
+          <Property Name="ES_TYPE" Type="varchar" MaxLength="2" Nullable="false" />
+          <Property Name="ES_SEQ" Type="tinyint" />
+        </EntityType>
+        <EntityType Name="ImageStore">
+          <Key>
+            <PropertyRef Name="ImageStore_nbr" />
+          </Key>
+          <Property Name="ImageStore_nbr" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="MimeType" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Content" Type="image" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Score">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="sid" Type="int" Nullable="false" />
+          <Property Name="score" Type="int" Nullable="false" />
+          <Property Name="s_time" Type="datetime" />
+          <Property Name="u_username" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Student">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="age" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="s_state" Type="nvarchar" MaxLength="20" />
+          <Property Name="s_type" Type="nvarchar" MaxLength="20" />
+          <Property Name="s_date" Type="datetime" />
+          <Property Name="sss" Type="int" />
+        </EntityType>
+        <!--生成过程中发现错误:
+警告 6002: 表/视图“MySchool.dbo.TableB”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+        <EntityType Name="TableB">
+          <Key>
+            <PropertyRef Name="x" />
+            <PropertyRef Name="y" />
+            <PropertyRef Name="z" />
+          </Key>
+          <Property Name="x" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="y" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="z" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="MySchoolModelStoreContainer">
+          <EntitySet Name="AP_FUN_API" EntityType="Self.AP_FUN_API" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AP_FUNCTION" EntityType="Self.AP_FUNCTION" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AP_STATUS" EntityType="Self.AP_STATUS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ImageStore" EntityType="Self.ImageStore" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Score" EntityType="Self.Score" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Student" EntityType="Self.Student" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TableB" EntityType="Self.TableB" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [TableB].[x] AS [x], 
+    [TableB].[y] AS [y], 
+    [TableB].[z] AS [z]
+    FROM [dbo].[TableB] AS [TableB]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MySchoolModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AP_FUN_API">
+          <Key>
+            <PropertyRef Name="AFA_FUN_FILE" />
+            <PropertyRef Name="AFA_API_CODE" />
+          </Key>
+          <Property Name="AFA_FUN_FILE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AFA_API_CODE" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="APA_SEQ" Type="Byte" Nullable="false" />
+          <Property Name="APA_CREATE_DATE" Type="DateTime" Nullable="false" Precision="0" />
+        </EntityType>
+        <EntityType Name="AP_FUNCTION">
+          <Key>
+            <PropertyRef Name="FN_CODE" />
+          </Key>
+          <Property Name="FN_CODE" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FN_DESC" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="FN_SINGLE_ACCESS" Type="Boolean" />
+          <Property Name="FN_USER_ID" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="FN_FILE_LOCATION" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="FN_ICON" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FN_SEQ" Type="Int32" />
+          <Property Name="FN_MULTIWINDOW" Type="Boolean" />
+          <Property Name="FN_WITH_API" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="AP_STATUS">
+          <Key>
+            <PropertyRef Name="ES_CODE" />
+            <PropertyRef Name="ES_TYPE" />
+          </Key>
+          <Property Name="ES_CODE" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ES_DESC" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ES_TYPE" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ES_SEQ" Type="Byte" />
+        </EntityType>
+        <EntityType Name="ImageStore">
+          <Key>
+            <PropertyRef Name="ImageStore_nbr" />
+          </Key>
+          <Property Name="ImageStore_nbr" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MimeType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Content" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Score">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="sid" Type="Int32" Nullable="false" />
+          <Property Name="score1" Type="Int32" Nullable="false" />
+          <Property Name="s_time" Type="DateTime" Precision="3" />
+          <Property Name="u_username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Student">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="age" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="s_state" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="s_type" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="s_date" Type="DateTime" Precision="3" />
+          <Property Name="sss" Type="Int32" />
+        </EntityType>
+        <EntityType Name="TableB">
+          <Key>
+            <PropertyRef Name="x" />
+            <PropertyRef Name="y" />
+            <PropertyRef Name="z" />
+          </Key>
+          <Property Name="x" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="y" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="z" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="MySchoolEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AP_FUN_API" EntityType="Self.AP_FUN_API" />
+          <EntitySet Name="AP_FUNCTION" EntityType="Self.AP_FUNCTION" />
+          <EntitySet Name="AP_STATUS" EntityType="Self.AP_STATUS" />
+          <EntitySet Name="ImageStore" EntityType="Self.ImageStore" />
+          <EntitySet Name="Score" EntityType="Self.Score" />
+          <EntitySet Name="Student" EntityType="Self.Student" />
+          <EntitySet Name="TableB" EntityType="Self.TableB" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MySchoolModelStoreContainer" CdmEntityContainer="MySchoolEntities">
+          <EntitySetMapping Name="AP_FUN_API">
+            <EntityTypeMapping TypeName="MySchoolModel.AP_FUN_API">
+              <MappingFragment StoreEntitySet="AP_FUN_API">
+                <ScalarProperty Name="AFA_FUN_FILE" ColumnName="AFA_FUN_FILE" />
+                <ScalarProperty Name="AFA_API_CODE" ColumnName="AFA_API_CODE" />
+                <ScalarProperty Name="APA_SEQ" ColumnName="APA_SEQ" />
+                <ScalarProperty Name="APA_CREATE_DATE" ColumnName="APA_CREATE_DATE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AP_FUNCTION">
+            <EntityTypeMapping TypeName="MySchoolModel.AP_FUNCTION">
+              <MappingFragment StoreEntitySet="AP_FUNCTION">
+                <ScalarProperty Name="FN_CODE" ColumnName="FN_CODE" />
+                <ScalarProperty Name="FN_DESC" ColumnName="FN_DESC" />
+                <ScalarProperty Name="FN_SINGLE_ACCESS" ColumnName="FN_SINGLE_ACCESS" />
+                <ScalarProperty Name="FN_USER_ID" ColumnName="FN_USER_ID" />
+                <ScalarProperty Name="FN_FILE_LOCATION" ColumnName="FN_FILE_LOCATION" />
+                <ScalarProperty Name="FN_ICON" ColumnName="FN_ICON" />
+                <ScalarProperty Name="FN_SEQ" ColumnName="FN_SEQ" />
+                <ScalarProperty Name="FN_MULTIWINDOW" ColumnName="FN_MULTIWINDOW" />
+                <ScalarProperty Name="FN_WITH_API" ColumnName="FN_WITH_API" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AP_STATUS">
+            <EntityTypeMapping TypeName="MySchoolModel.AP_STATUS">
+              <MappingFragment StoreEntitySet="AP_STATUS">
+                <ScalarProperty Name="ES_CODE" ColumnName="ES_CODE" />
+                <ScalarProperty Name="ES_DESC" ColumnName="ES_DESC" />
+                <ScalarProperty Name="ES_TYPE" ColumnName="ES_TYPE" />
+                <ScalarProperty Name="ES_SEQ" ColumnName="ES_SEQ" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ImageStore">
+            <EntityTypeMapping TypeName="MySchoolModel.ImageStore">
+              <MappingFragment StoreEntitySet="ImageStore">
+                <ScalarProperty Name="ImageStore_nbr" ColumnName="ImageStore_nbr" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="MimeType" ColumnName="MimeType" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Score">
+            <EntityTypeMapping TypeName="MySchoolModel.Score">
+              <MappingFragment StoreEntitySet="Score">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="sid" ColumnName="sid" />
+                <ScalarProperty Name="score1" ColumnName="score" />
+                <ScalarProperty Name="s_time" ColumnName="s_time" />
+                <ScalarProperty Name="u_username" ColumnName="u_username" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Student">
+            <EntityTypeMapping TypeName="MySchoolModel.Student">
+              <MappingFragment StoreEntitySet="Student">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="age" ColumnName="age" />
+                <ScalarProperty Name="s_state" ColumnName="s_state" />
+                <ScalarProperty Name="s_type" ColumnName="s_type" />
+                <ScalarProperty Name="s_date" ColumnName="s_date" />
+                <ScalarProperty Name="sss" ColumnName="sss" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TableB">
+            <EntityTypeMapping TypeName="MySchoolModel.TableB">
+              <MappingFragment StoreEntitySet="TableB">
+                <ScalarProperty Name="x" ColumnName="x" />
+                <ScalarProperty Name="y" ColumnName="y" />
+                <ScalarProperty Name="z" ColumnName="z" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

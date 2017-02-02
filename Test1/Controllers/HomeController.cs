@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DB;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,7 +12,12 @@ namespace Test1.Controllers
         // GET: Home
         public ActionResult Index()
         {
-            return View();
+
+            using (MySchoolEntities db = new MySchoolEntities())
+            {
+                return View(db.Student.ToList());
+            }
+          
         }
     }
 }
